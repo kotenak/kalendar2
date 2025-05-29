@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Живые истории</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <script src="lib/aframe.min.js"></script>
+    <script src="lib/aframe-ar.js"></script>
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+        font-family: 'Montserrat', sans-serif;
+      }
+      #startScreen {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        background-color: rgba(0,0,0,0.5);
+        z-index: 1000;
+      }
+      #logo {
+        width: 350px;
+        height: auto;
+        margin-top: 10vh;
+        margin-bottom: 20vh;
+      }
+      #title {
+        color: white;
+        font-size: 36px;
+        font-weight: 700;
+        margin-bottom: 10vh;
+        text-align: center;
+      }
+      #startButton {
+        padding: 16px 32px;
+        font-size: 18px;
+        font-family: 'Montserrat', sans-serif;
+        background-color: #c44e4e;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-bottom: 35vh;
+      }
+      #hint {
+        position: absolute;
+        bottom: 20px;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        color: white;
+        font-size: 18px;
+        background-color: rgba(0,0,0,0.5);
+        padding: 10px;
+        display: none;
+        z-index: 999;
+      }
+      #orientationWarning {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: rgba(0,0,0,0.5);
+        color: white;
+        text-align: center;
+        padding: 15px;
+        font-size: 16px;
+        font-family: 'Montserrat', sans-serif;
+        z-index: 1001;
+        display: none;
+      }
+      a-plane {
+        opacity: 0.9;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Стартовый экран -->
+    <div id="startScreen">
+      <img id="logo" src="materials/logo2.png" alt="Логотип">
+      <div id="title">Живые истории</div>
+      <button id="startButton">Начать</button>
+    </div>
+
+    <!-- Подсказка -->
+    <div id="hint">Наведите камеру на карточку</div>
+    
+    <!-- Предупреждение о ориентации -->
+    <div id="orientationWarning">Для лучшего отображения поверните телефон вертикально</div>
+
+    <!-- Видеоэлементы (скрытые) -->
+    <video id="video0" src="materials/video0.mp4" preload="auto" loop crossorigin="anonymous" playsinline webkit-playsinline style="display: none;"></video>
+    <video id="video1" src="materials/video1.mp4" preload="auto" loop crossorigin="anonymous" playsinline webkit-playsinline style="display: none;"></video>
+    <video id="video2" src="materials/video2.mp4" preload="auto" loop crossorigin="anonymous" playsinline webkit-playsinline style="display: none;"></video>
+    <video id="video3" src="materials/video3.mp4" preload="auto" loop crossorigin="anonymous" playsinline webkit-playsinline style="display: none;"></video>
+    <video id="video4" src="materials/video4.mp4" preload="auto" loop crossorigin="anonymous" playsinline webkit-playsinline style="display: none;"></video>
+    <video id="video5" src="materials/video5.mp4" preload="auto" loop crossorigin="anonymous" playsinline webkit-playsinline style="display: none;"></video>
+    <video id="video6" src="materials/video6.mp4" preload="auto" loop crossorigin="anonymous" playsinline webkit-playsinline style="display: none;"></video>
+    <video id="video7" src="materials/video7.mp4" preload="auto" loop crossorigin="anonymous" playsinline webkit-playsinline style="display: none;"></video>
+    <video id="video8" src="materials/video8.mp4" preload="auto" loop crossorigin="anonymous" playsinline webkit-playsinline style="display: none;"></video>
+    <video id="video9" src="materials/video9.mp4" preload="auto" loop crossorigin="anonymous" playsinline webkit-playsinline style="display: none;"></video>
+    <video id="video10" src="materials/video10.mp4" preload="auto" loop crossorigin="anonymous" playsinline webkit-playsinline style="display: none;"></video>
+    <video id="video11" src="materials/video11.mp4" preload="auto" loop crossorigin="anonymous" playsinline webkit-playsinline style="display: none;"></video>
+
+    <!-- Аудиоэлементы (скрытые) -->
+    <audio id="audio0" src="materials/audio0.mp3" preload="auto" crossorigin="anonymous" style="display: none;"></audio>
+    <audio id="audio1" src="materials/audio1.mp3" preload="auto" crossorigin="anonymous" style="display: none;"></audio>
+    <audio id="audio2" src="materials/audio2.mp3" preload="auto" crossorigin="anonymous" style="display: none;"></audio>
+    <audio id="audio3" src="materials/audio3.mp3" preload="auto" crossorigin="anonymous" style="display: none;"></audio>
+    <audio id="audio4" src="materials/audio4.mp3" preload="auto" crossorigin="anonymous" style="display: none;"></audio>
+    <audio id="audio5" src="materials/audio5.mp3" preload="auto" crossorigin="anonymous" style="display: none;"></audio>
+    <audio id="audio6" src="materials/audio6.mp3" preload="auto" crossorigin="anonymous" style="display: none;"></audio>
+    <audio id="audio7" src="materials/audio7.mp3" preload="auto" crossorigin="anonymous" style="display: none;"></audio>
+    <audio id="audio8" src="materials/audio8.mp3" preload="auto" crossorigin="anonymous" style="display: none;"></audio>
+    <audio id="audio9" src="materials/audio9.mp3" preload="auto" crossorigin="anonymous" style="display: none;"></audio>
+    <audio id="audio10" src="materials/audio10.mp3" preload="auto" crossorigin="anonymous" style="display: none;"></audio>
+    <audio id="audio11" src="materials/audio11.mp3" preload="auto" crossorigin="anonymous" style="display: none;"></audio>
+
+    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;" renderer="logarithmicDepthBuffer: true; alpha: true;" vr-mode-ui="enabled: false">
+      
+      <!-- Маркеры и плоскости -->
+      <a-marker type="pattern" url="patterns/p0.patt" emitevents="true" id="marker0">
+        <a-plane rotation="-90 0 0" width="1.6" height="1.6" material="shader: flat; src: #video0; transparent: true;"></a-plane>
+      </a-marker>
+      <a-marker type="pattern" url="patterns/p1.patt" emitevents="true" id="marker1">
+        <a-plane rotation="-90 0 0" width="1.6" height="1.6" material="shader: flat; src: #video1; transparent: true;"></a-plane>
+      </a-marker>
+      <a-marker type="pattern" url="patterns/p2.patt" emitevents="true" id="marker2">
+        <a-plane rotation="-90 0 0" width="1.6" height="1.6" material="shader: flat; src: #video2; transparent: true;"></a-plane>
+      </a-marker>
+      <a-marker type="pattern" url="patterns/p3.patt" emitevents="true" id="marker3">
+        <a-plane rotation="-90 0 0" width="1.6" height="1.6" material="shader: flat; src: #video3; transparent: true;"></a-plane>
+      </a-marker>
+      <a-marker type="pattern" url="patterns/p4.patt" emitevents="true" id="marker4">
+        <a-plane rotation="-90 0 0" width="1.6" height="1.6" material="shader: flat; src: #video4; transparent: true;"></a-plane>
+      </a-marker>
+      <a-marker type="pattern" url="patterns/p5.patt" emitevents="true" id="marker5">
+        <a-plane rotation="-90 0 0" width="1.6" height="1.6" material="shader: flat; src: #video5; transparent: true;"></a-plane>
+      </a-marker>
+      <a-marker type="pattern" url="patterns/p6.patt" emitevents="true" id="marker6">
+        <a-plane rotation="-90 0 0" width="1.6" height="1.6" material="shader: flat; src: #video6; transparent: true;"></a-plane>
+      </a-marker>
+      <a-marker type="pattern" url="patterns/p7.patt" emitevents="true" id="marker7">
+        <a-plane rotation="-90 0 0" width="1.6" height="1.6" material="shader: flat; src: #video7; transparent: true;"></a-plane>
+      </a-marker>
+      <a-marker type="pattern" url="patterns/p8.patt" emitevents="true" id="marker8">
+        <a-plane rotation="-90 0 0" width="1.6" height="1.6" material="shader: flat; src: #video8; transparent: true;"></a-plane>
+      </a-marker>
+      <a-marker type="pattern" url="patterns/p9.patt" emitevents="true" id="marker9">
+        <a-plane rotation="-90 0 0" width="1.6" height="1.6" material="shader: flat; src: #video9; transparent: true;"></a-plane>
+      </a-marker>
+      <a-marker type="pattern" url="patterns/p10.patt" emitevents="true" id="marker10">
+        <a-plane rotation="-90 0 0" width="1.6" height="1.6" material="shader: flat; src: #video10; transparent: true;"></a-plane>
+      </a-marker>
+      <a-marker type="pattern" url="patterns/p11.patt" emitevents="true" id="marker11">
+        <a-plane rotation="-90 0 0" width="1.6" height="1.6" material="shader: flat; src: #video11; transparent: true;"></a-plane>
+      </a-marker>
+
+      <a-entity camera></a-entity>
+    </a-scene>
+
+    <script>
+      const startScreen = document.getElementById("startScreen");
+      const startButton = document.getElementById("startButton");
+      const hint = document.getElementById("hint");
+      const orientationWarning = document.getElementById("orientationWarning");
+      const videoCount = 12;
+      const videos = [];
+      const audios = [];
+
+      for (let i = 0; i < videoCount; i++) {
+        const video = document.getElementById("video" + i);
+        videos.push(video);
+        
+        const audio = document.getElementById("audio" + i);
+        // Добавляем обработчик события окончания воспроизведения
+        audio.addEventListener('ended', function() {
+          this.currentTime = 0; // Перематываем в начало
+          this.play().catch(e => console.warn(`Ошибка воспроизведения audio${i}:`, e));
+        });
+        audios.push(audio);
+      }
+
+      let isStarted = false;
+      let markerFound = false;
+
+      // Функция проверки ориентации
+      function checkOrientation() {
+        if (!isStarted) return;
+        
+        if (window.innerHeight < window.innerWidth) {
+          // Горизонтальная ориентация
+          orientationWarning.style.display = "block";
+        } else {
+          // Вертикальная ориентация
+          orientationWarning.style.display = "none";
+        }
+      }
+
+      // Обработчик изменения ориентации
+      window.addEventListener("resize", checkOrientation);
+      window.addEventListener("orientationchange", checkOrientation);
+
+      startButton.addEventListener("click", () => {
+        isStarted = true;
+        startScreen.style.display = "none";
+        hint.style.display = "block";
+        checkOrientation(); // Проверить ориентацию при старте
+      });
+
+      function updateHintVisibility() {
+        if (!isStarted) return;
+        
+        if (markerFound) {
+          hint.style.display = "none";
+        } else {
+          hint.style.display = "block";
+        }
+      }
+
+      for (let i = 0; i < videoCount; i++) {
+        const marker = document.getElementById("marker" + i);
+        const video = videos[i];
+        const audio = audios[i];
+
+        marker.addEventListener("markerFound", () => {
+          if (isStarted) {
+            markerFound = true;
+            updateHintVisibility();
+            video.play().catch((e) =>
+              console.warn(`Ошибка воспроизведения video${i}:`, e)
+            );
+            audio.play().catch((e) =>
+              console.warn(`Ошибка воспроизведения audio${i}:`, e)
+            );
+          }
+        });
+
+        marker.addEventListener("markerLost", () => {
+          if (isStarted) {
+            markerFound = false;
+            updateHintVisibility();
+            video.pause();
+            video.currentTime = 0;
+            audio.pause();
+            audio.currentTime = 0;
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
